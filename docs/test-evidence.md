@@ -1,0 +1,12 @@
+# Test evidence
+2026-10-09: Node built-in mocked contract, transport, error-redaction, response-validation and SQLite quota regression suite: 38 passing tests. Production Vinext/Cloudflare Worker build passed in portable Linux cloud environment. Monte Carlo example executed independently with synthetic inputs.
+
+Independent source review identified and repaired: unvalidated Score legend, non-string Choice result, delimiter-colliding probability keys, no-ID tool-call handling, and backward-moving quota windows, and redirect handling (redirects are rejected without credential forwarding). Regression tests included.
+
+Live evidence (2026-10-09 10:27:47 UTC): the owner invoked the installed private plugin through Dot with a synthetic three-question batch. TypeSafe returned model `jev-1.13.0`, Choice `risk_type=schedule` (probabilities 1/0/0, confidence 1), Score `attention=1.02` (levels 0/1/2 with probabilities 0/0.98/0.02, confidence 0.97), Noul `missed_delivery=0.99`, and usage 451 input / 71 output tokens. This establishes authenticated installed-tool inference in this owner's deployment; it is not evidence of automatic tool selection or another user's eligibility.
+
+Private deployment and D1 migration succeeded. Direct anonymous `POST /mcp` requests returned 403, including a request with a forged `oai-authenticated-user-id` header. No credentials were used for these rejection checks. These checks establish rejection of the tested external requests, not every possible proxy/header configuration.
+
+Fresh ordinary ChatGPT tests: an explicit tool request and a natural-language request (without a tool name) both returned the expected synthetic `billing` result with probability 1. Server telemetry corroborated exactly two additional inference requests and two questions, with successful `POST /mcp` responses at 10:29:11.089 and 10:29:15.519 UTC. The explicit flow was active around 10:29:08 and complete by 10:29:21; the natural-language flow was thinking at 10:29:14 and complete by 10:29:25. No other test caller made inference requests in that interval. The browser did not expose a visible tool trace; per-flow mapping is inferred from timing, not correlated by request ID. These are positive corroborated observations, not a guarantee of future automatic selection.
+
+Not yet verified: a second user's independent deployment. This requires that user's real account and key; source cloning does not count.

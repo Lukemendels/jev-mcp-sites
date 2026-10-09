@@ -1,0 +1,8 @@
+// Run: node examples/paul-risk.mjs. Purely synthetic, deterministic simulation.
+// This script does NOT call Jev and does not use Jev probabilities as frequencies.
+export const jevRequest={state:'Synthetic scenario: a supplier missed two milestones and has no documented backup. No real company or TSA data.',questions:{category:{type:'choice',instructions:'Classify qualitative schedule concern for human triage.',criteria:{low:'Routine monitoring sufficient',medium:'Targeted review needed',high:'Immediate mitigation review needed'}},readiness:{type:'score',instructions:'Rate documented mitigation readiness, lowest to highest.',criteria:['No backup documented','Partial backup','Tested backup']},review:{type:'noul',instructions:'Does the described scenario warrant a human mitigation review?'}}};
+let seed=42;const random=()=>((seed=(Math.imul(seed,1664525)+1013904223)>>>0)/4294967296);
+// Assumptions selected independently by analyst FOR ILLUSTRATION, not estimated from Jev.
+const assumptions={trials:100000,eventFrequency:.15,minImpact:1000,maxImpact:10000,source:'Synthetic analyst assumptions; replace with validated data before operational use.'};
+const losses=Array.from({length:assumptions.trials},()=>random()<assumptions.eventFrequency?assumptions.minImpact+random()*(assumptions.maxImpact-assumptions.minImpact):0).sort((a,b)=>a-b);
+console.log(JSON.stringify({jevRequest,monteCarlo:{assumptions,meanLoss:losses.reduce((a,b)=>a+b,0)/losses.length,p95Loss:losses[Math.floor(losses.length*.95)]},interpretation:'Use Jev for qualitative triage alongside this separate simulation. Neither its choice probability nor confidence supplies the simulation event frequency.'},null,2));
